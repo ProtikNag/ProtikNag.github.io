@@ -5,11 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Name - Ph.D. Student</title>
     <style>
-        /* Modern, clean styling */
+        /* Enhanced styling with dark mode support */
         :root {
+            /* Light mode variables */
             --primary-color: #2c3e50;
             --secondary-color: #3498db;
             --background-color: #f8f9fa;
+            --text-color: #2c3e50;
+            --section-bg: white;
+            --header-bg: #2c3e50;
+            --nav-bg: white;
+            --border-color: #eee;
+        }
+
+        /* Dark mode variables */
+        [data-theme="dark"] {
+            --primary-color: #61dafb;
+            --secondary-color: #bb86fc;
+            --background-color: #121212;
+            --text-color: #e0e0e0;
+            --section-bg: #1e1e1e;
+            --header-bg: #1a1a1a;
+            --nav-bg: #1a1a1a;
+            --border-color: #333;
+        }
+
+        /* Smooth transitions for theme switching */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         body {
@@ -17,7 +40,7 @@
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            color: var(--primary-color);
+            color: var(--text-color);
             background-color: var(--background-color);
         }
 
@@ -28,16 +51,58 @@
         }
 
         header {
-            background-color: var(--primary-color);
+            background-color: var(--header-bg);
             color: white;
             padding: 2rem 0;
             text-align: center;
+            position: relative;
         }
 
+        /* Theme toggle button */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.5rem;
+            padding: 10px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Enhanced navigation with burger menu */
         nav {
-            background-color: white;
+            background-color: var(--nav-bg);
             padding: 1rem 0;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .burger-menu {
+            display: none;
+            cursor: pointer;
+            padding: 10px;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .burger-menu div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-color);
+            margin: 5px 0;
+            transition: 0.3s;
         }
 
         nav ul {
@@ -51,8 +116,9 @@
 
         nav a {
             text-decoration: none;
-            color: var(--primary-color);
+            color: var(--text-color);
             font-weight: 500;
+            transition: color 0.3s;
         }
 
         nav a:hover {
@@ -60,7 +126,7 @@
         }
 
         section {
-            background: white;
+            background: var(--section-bg);
             margin: 2rem 0;
             padding: 2rem;
             border-radius: 8px;
@@ -68,7 +134,7 @@
         }
 
         h1, h2, h3 {
-            color: var(--primary-color);
+            color: var(--text-color);
         }
 
         .profile-img {
@@ -78,12 +144,18 @@
             object-fit: cover;
             margin: 20px auto;
             display: block;
+            border: 4px solid var(--secondary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
         }
 
         .publication {
             margin-bottom: 1rem;
             padding-bottom: 1rem;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .social-links {
@@ -93,31 +165,73 @@
             margin-top: 1rem;
         }
 
+        .social-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background-color: var(--background-color);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
         footer {
             text-align: center;
             padding: 2rem 0;
-            background-color: var(--primary-color);
+            background-color: var(--header-bg);
             color: white;
         }
 
+        /* Enhanced mobile responsiveness */
         @media (max-width: 768px) {
+            .burger-menu {
+                display: block;
+            }
+
             nav ul {
+                display: none;
                 flex-direction: column;
                 text-align: center;
                 gap: 1rem;
+                padding: 1rem 0;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav {
+                position: relative;
+                padding: 1rem;
+            }
+
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <img src="/images/dp.png" alt="Your Profile Picture" class="profile-img">
+        <button class="theme-toggle" aria-label="Toggle dark mode">🌓</button>
+        <img src="/api/placeholder/200/200" alt="Your Profile Picture" class="profile-img">
         <h1>Your Name</h1>
         <p>Ph.D. Student at [University Name]</p>
         <p>[Department Name]</p>
     </header>
 
     <nav>
+        <div class="burger-menu" aria-label="Toggle navigation menu">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
         <ul>
             <li><a href="#about">About</a></li>
             <li><a href="#research">Research</a></li>
@@ -128,6 +242,7 @@
     </nav>
 
     <div class="container">
+        <!-- Previous sections remain the same -->
         <section id="about">
             <h2>About Me</h2>
             <p>I am a Ph.D. student in [Field] at [University]. My research focuses on [Brief description of your research interests and goals].</p>
@@ -173,5 +288,61 @@
     <footer>
         <p>© 2024 Your Name - Last updated: December 2024</p>
     </footer>
+
+    <script>
+        // Dark mode toggle functionality
+        const themeToggle = document.querySelector('.theme-toggle');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        // Set initial theme based on user's system preference
+        if (prefersDarkScheme.matches) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeToggle.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                themeToggle.textContent = '🌓';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '☀️';
+            }
+        });
+
+        // Burger menu functionality
+        const burgerMenu = document.querySelector('.burger-menu');
+        const navList = document.querySelector('nav ul');
+
+        burgerMenu.addEventListener('click', () => {
+            navList.classList.toggle('active');
+            // Animate burger menu
+            const bars = burgerMenu.querySelectorAll('div');
+            bars.forEach(bar => bar.style.transition = '0.3s');
+            if (navList.classList.contains('active')) {
+                bars[0].style.transform = 'rotate(-45deg) translate(-5px, 6px)';
+                bars[1].style.opacity = '0';
+                bars[2].style.transform = 'rotate(45deg) translate(-5px, -6px)';
+            } else {
+                bars[0].style.transform = 'none';
+                bars[1].style.opacity = '1';
+                bars[2].style.transform = 'none';
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navList.classList.remove('active');
+                    const bars = burgerMenu.querySelectorAll('div');
+                    bars[0].style.transform = 'none';
+                    bars[1].style.opacity = '1';
+                    bars[2].style.transform = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
